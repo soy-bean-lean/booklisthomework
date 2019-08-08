@@ -1,27 +1,28 @@
-import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
-// run `npm install react-facebook-login`
-import FacebookLogin from 'react-facebook-login'; // import FB Login component
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import SaveBooks from "./pages/SaveBooks";
+import SearchBooks from "./pages/SearchBooks";
+import NoMatch from "./pages/NoMatch";
+import Nav from "./components/index.js";
+import Footer from "./components/Footer"
+import "./App.css"
 
-// Declare this variable
-const responseFacebook = (response) => {
-  console.log(response);
-}
 
-class App extends Component {
-  render() {
-    return (
-      // Render the fb login component, imported above
-      <FacebookLogin
-        appId="1088597931155576"
-        autoLoad={true}
-        fields="name,email,picture"
-        onClick={componentClicked}
-        callback={responseFacebook} 
-      />
-    );
-  }
+function App() {
+  return (
+    <Router>
+      <div>
+        <Nav />
+        <Switch>
+          <Route exact path="/" component={SearchBooks} />
+          <Route exact path="/saved" component={SaveBooks} />
+          <Route exact path="/saved/:id" component={SaveBooks} />
+          <Route component={NoMatch} /> 
+        </Switch>
+        <Footer />
+      </div>
+    </Router>
+  );
 }
 
 export default App;
